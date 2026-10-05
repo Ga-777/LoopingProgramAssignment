@@ -61,7 +61,7 @@
         static void BankOfBlorb()
         {
             int choice ;
-            decimal depositAmount, withdrawAmount;
+            decimal depositAmount, withdrawAmount, balance = 150;
             for (int i = 0; i < 1; i++)
             {
                 Console.Clear();
@@ -92,7 +92,7 @@
                 if (choice == 1)
                 {
                     Console.Clear();
-                    Console.WriteLine("Your balance is: $150");
+                    Console.WriteLine("Your balance is: " + balance.ToString("c"));
                 }
                 else if (choice == 2)
                 {
