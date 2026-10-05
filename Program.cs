@@ -104,6 +104,8 @@
                     }
                     Console.Clear();
                     Console.WriteLine("You have deposited: $" + depositAmount);
+                    balance = balance + depositAmount;
+                    Console.WriteLine("Your new balance is: " + balance.ToString("c"));
                 }
                 else if (choice == 3)
                 {
