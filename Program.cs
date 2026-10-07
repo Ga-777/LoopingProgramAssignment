@@ -60,18 +60,15 @@
         }
         static void BankOfBlorb()
         {
-            int choice ;
-            decimal depositAmount, withdrawAmount, balance = 150;
-            for (int i = 0; i < 1; i++)
+            int choice = 0;
+            decimal depositAmount, withdrawAmount, balance = 150, fee = 0.75m, bill = 0, payment = 0;
+            Console.Clear();
+            Console.WriteLine("Welcome to the Bank of blorb, or BoB");
+            Console.WriteLine("Please enter your name:");
+            string name = Console.ReadLine();
+            while (choice != 5)
             {
-                Console.Clear();
-                Console.WriteLine("Welcome to the Bank of blorb, or BoB");
-                Console.WriteLine("Please enter your name:");
-                string name = Console.ReadLine();
-                Console.Clear();
-                Console.WriteLine("Welcome " + name + " to the Bank of blorb, or BoB");
-                Console.WriteLine("Please enter your account number:");
-                string accountNumber = Console.ReadLine();
+
                 Console.Clear();
                 Console.WriteLine("Welcome " + name + " to the Bank of blorb, or BoB");
                 Console.WriteLine("/////////////////////////////////////////////////");
@@ -83,16 +80,37 @@
                 Console.WriteLine("");
                 Console.WriteLine("3. Withdraw");
                 Console.WriteLine("");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. Bill payment");
                 Console.WriteLine("");
-                while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 4)
+                
+                Console.WriteLine("5. Exit");
+                Console.WriteLine("");
+                Console.WriteLine("A fee of " + fee.ToString("c") + " will be charged for each transaction.");
+                Console.WriteLine("");
+                while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5)
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid option (1-4).");
+                    Console.WriteLine("Invalid input. Please enter a valid option (1-5).");
                 }
                 if (choice == 1)
                 {
                     Console.Clear();
-                    Console.WriteLine("Your balance is: " + balance.ToString("c"));
+                    if (balance > 0)
+                    {
+                        balance = balance - fee;
+                        
+                    }
+                    else
+                    {
+                        
+                        bill = bill + fee;
+                    }
+
+                    Console.WriteLine("Your balance is " + balance.ToString("c"));
+                    Console.WriteLine("");
+
+                    Console.WriteLine("Please press enter to continue:");
+                    Console.ReadLine();
+
                 }
                 else if (choice == 2)
                 {
@@ -103,9 +121,22 @@
                         Console.WriteLine("Invalid input. Please enter a valid amount greater than 0.");
                     }
                     Console.Clear();
-                    Console.WriteLine("You have deposited: $" + depositAmount);
+                    Console.WriteLine("You have deposited: " + depositAmount.ToString("c"));
                     balance = balance + depositAmount;
+                    if (balance >= 0)
+                    {
+                        balance = balance - fee;
+
+                    }
+                    else
+                    {
+                        bill = bill + fee;
+                    }
                     Console.WriteLine("Your new balance is: " + balance.ToString("c"));
+                    Console.WriteLine("");
+
+                    Console.WriteLine("Please press enter to continue:");
+                    Console.ReadLine();
                 }
                 else if (choice == 3)
                 {
@@ -115,17 +146,139 @@
                     {
                         Console.WriteLine("Invalid input. Please enter a valid amount greater than 0.");
                     }
-                    Console.Clear();
-                    Console.WriteLine("You have withdrawn: $" + withdrawAmount);
+                    if (withdrawAmount > balance)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("You do not have enough funds to withdraw that amount.");
+                        Console.WriteLine("Your current balance is: " + balance.ToString("c"));
+                        Console.WriteLine("");
+
+                        Console.WriteLine("Please press enter to continue:");
+                        Console.ReadLine();
+                        continue;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("You have withdrawn: " + withdrawAmount.ToString("c"));
+                        balance = balance - withdrawAmount;
+                        if (balance > 0)
+                        {
+                            balance = balance - fee;
+                            
+                        }
+                        else
+                        {
+                            bill = bill + fee;
+                        }
+                        Console.WriteLine("Your new balance is: " + balance.ToString("c"));
+                        if (balance <= 0)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You don't have enough funds.");
+                            balance = 0;
+                            Console.WriteLine("Your new balance is: " + balance);
+                            bill = bill + fee;
+
+                        }
+
+
+
+                        Console.WriteLine("");
+                        Console.WriteLine("Please press enter to continue:");
+                        Console.ReadLine();
+                    }
+
+
                 }
-                else if (choice == 4)
+                if (choice == 4)
+                {
+                    Console.Clear();
+                    if (bill <= 0)
+                    {
+                        balance = balance - fee;
+                        Console.WriteLine("You do not have any bills to pay.");
+                        Console.WriteLine("");
+                        Console.WriteLine("Please press enter to continue:");
+                        Console.ReadLine();
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Your current bill is: " + bill.ToString("c"));
+                        Console.WriteLine("Please enter the amount you would like to pay for your bill:");
+                        while (!decimal.TryParse(Console.ReadLine(), out payment) || payment <= 0)
+                        {
+                            Console.WriteLine("Invalid input. Please enter a valid amount greater than 0.");
+                        }
+                        if (payment > balance)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You do not have enough funds to pay that bill.");
+                            bill = bill + fee;
+                            if (balance > 0)
+                            {
+                                balance = balance - fee;
+                            }
+                            Console.WriteLine("Your current balance is: " + balance.ToString("c"));
+                            Console.WriteLine("");
+
+                            Console.WriteLine("Please press enter to continue:");
+                            Console.ReadLine();
+                            continue;
+                        }
+                        else
+                        {
+
+
+                            balance = balance - fee;
+                            Console.Clear();
+                            bill = bill - payment;
+                            Console.WriteLine("You have paid: " + payment.ToString("c") + " for your bill.");
+                            if (bill <= 0)
+                            {
+
+
+                                bill = 0;
+                            }
+
+                            Console.WriteLine("Your current bill is: " + (bill).ToString("c"));
+                            balance = balance - payment;
+
+                            if (balance > 0)
+                            {
+                                balance = balance - fee;
+                                bill = bill - payment;
+                                balance = balance + bill;
+                            }
+                            Console.WriteLine("Your new balance is: " + balance.ToString("c"));
+                            if (balance <= 0)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("You don't have enough funds.");
+                                balance = 0;
+                                Console.WriteLine("Your new balance is: " + balance);
+                                bill = bill + fee;
+
+                            }
+
+
+                        }
+
+                        Console.WriteLine("");
+                        Console.WriteLine("Please press enter to continue:");
+                        Console.ReadLine();
+
+                    }
+                }
+                else if (choice == 5)
                 {
                     Console.Clear();
                     Console.WriteLine("Thank you for using the Bank of blorb, or BoB");
-                    
+
                 }
             }
-            
+
 
         }
     }
