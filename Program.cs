@@ -1,9 +1,11 @@
-﻿namespace LoopingProgramAssignment
+﻿using MakingClasses;
+namespace LoopingProgramAssignment
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            
             Console.WriteLine("Welcome to the Random Number Generator 2.0!");
             Console.WriteLine("This program will generate a random number between two numbers you provide.");
             Console.WriteLine("Please press enter to continue:");
@@ -13,6 +15,10 @@
             Console.WriteLine("Please press enter to continue:");
             Console.ReadLine();
             BankOfBlorb();
+            Console.WriteLine("");
+            Console.WriteLine("Please press enter to continue:");
+            Console.ReadLine();
+            DiesRoll();
         }
         static void numbers()
         {
@@ -278,6 +284,49 @@
             }
 
 
+        }
+        static void DiesRoll()
+        {
+            Console.Clear();
+            bool rolling = true;
+            Die die1 = new Die();
+            Die die2 = new Die();
+
+            while (rolling != false)
+            {
+                
+                
+
+                if (die1 == die2)
+                {
+                    Console.WriteLine("The dice rolled the same number. ");
+                    Console.WriteLine("");
+                    Console.WriteLine("Please press enter to continue:");
+                    Console.ReadLine();
+                    rolling = true;
+
+                }
+                else
+                {
+                    Thread.Sleep(500);
+                    die1.RollDie();
+                    die2.RollDie();
+
+                    Console.WriteLine(die1);
+                    die1.ColoredDie();
+                    die1.DrawRoll();
+
+
+
+                    Console.WriteLine(die2.Roll);
+                    die2.ColoredDie();
+                    die2.DrawRoll();
+                    die1.RollDie();
+                    die2.RollDie();
+                    
+                }
+                
+            }
         }
     }
 }
