@@ -60,38 +60,28 @@
         }
         static void BankOfBlorb()
         {
-            int choice = 0;
+            string choice = "";
             decimal depositAmount, withdrawAmount, balance = 150, fee = 0.75m, bill = 0, payment = 0;
             Console.Clear();
             Console.WriteLine("Welcome to the Bank of blorb, or BoB");
             Console.WriteLine("Please enter your name:");
             string name = Console.ReadLine();
-            while (choice != 5)
+            while (choice != "exit")
             {
 
                 Console.Clear();
                 Console.WriteLine("Welcome " + name + " to the Bank of blorb, or BoB");
                 Console.WriteLine("/////////////////////////////////////////////////");
-                Console.WriteLine("Please pick one below: ");
-                Console.WriteLine("");
-                Console.WriteLine("1. Check Balance");
-                Console.WriteLine("");
-                Console.WriteLine("2. Deposit");
-                Console.WriteLine("");
-                Console.WriteLine("3. Withdraw");
-                Console.WriteLine("");
-                Console.WriteLine("4. Bill payment");
-                Console.WriteLine("");
-                
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("Please type one of the fallowing: Balance, Deposit, Withdraw, bill or Exit");
                 Console.WriteLine("");
                 Console.WriteLine("A fee of " + fee.ToString("c") + " will be charged for each transaction.");
                 Console.WriteLine("");
-                while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5)
-                {
-                    Console.WriteLine("Invalid input. Please enter a valid option (1-5).");
-                }
-                if (choice == 1)
+                choice = Console.ReadLine().ToLower();
+
+
+
+
+                if (choice == "balance")
                 {
                     Console.Clear();
                     if (balance > 0)
@@ -112,7 +102,7 @@
                     Console.ReadLine();
 
                 }
-                else if (choice == 2)
+                else if (choice == "deposit")
                 {
                     Console.Clear();
                     Console.WriteLine("Please enter the amount you would like to deposit:");
@@ -138,7 +128,7 @@
                     Console.WriteLine("Please press enter to continue:");
                     Console.ReadLine();
                 }
-                else if (choice == 3)
+                else if (choice == "withdraw")
                 {
                     Console.Clear();
                     Console.WriteLine("Please enter the amount you would like to withdraw:");
@@ -191,7 +181,7 @@
 
 
                 }
-                if (choice == 4)
+                if (choice == "bill")
                 {
                     Console.Clear();
                     if (bill <= 0)
@@ -271,11 +261,19 @@
 
                     }
                 }
-                else if (choice == 5)
+                else if (choice == "exit")
                 {
                     Console.Clear();
                     Console.WriteLine("Thank you for using the Bank of blorb, or BoB");
 
+                }
+                else if (choice != "exit" && choice != "bill" && choice != "withdraw" && choice != "deposit" && choice != "balance")
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invalid input. Please enter a valid option.");
+                    Console.WriteLine("");
+                    Console.WriteLine("Please press enter to continue:");
+                    Console.ReadLine();
                 }
             }
 
