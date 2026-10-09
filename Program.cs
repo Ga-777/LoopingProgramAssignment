@@ -294,37 +294,45 @@ namespace LoopingProgramAssignment
 
             while (rolling != false)
             {
-                
-                
 
-                if (die1 == die2)
+                Thread.Sleep(500);
+                die1.RollDie();
+                die2.RollDie();
+
+                Console.WriteLine(die1);
+                die1.ColoredDie();
+                die1.DrawRoll();
+
+
+
+                Console.WriteLine(die2.Roll);
+                die2.ColoredDie();
+                die2.DrawRoll();
+                if (die1.Roll != die2.Roll)
                 {
-                    Console.WriteLine("The dice rolled the same number. ");
+                    
                     Console.WriteLine("");
                     Console.WriteLine("Please press enter to continue:");
                     Console.ReadLine();
-                    rolling = true;
-
-                }
-                else
-                {
-                    Thread.Sleep(500);
-                    die1.RollDie();
-                    die2.RollDie();
-
-                    Console.WriteLine(die1);
-                    die1.ColoredDie();
-                    die1.DrawRoll();
-
-
-
-                    Console.WriteLine(die2.Roll);
-                    die2.ColoredDie();
-                    die2.DrawRoll();
-                    die1.RollDie();
-                    die2.RollDie();
+                    
                     
                 }
+
+
+
+
+                if (die1.Roll == die2.Roll)
+                {
+                    Console.WriteLine("The dice rolled the same number. ");
+                    Console.WriteLine("");
+                    Console.WriteLine("Please press enter to exit");
+                    Console.ReadLine();
+                    rolling = false;
+                }
+
+                
+                    
+                
                 
             }
         }
